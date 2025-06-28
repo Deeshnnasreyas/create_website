@@ -78,7 +78,7 @@ type WebsiteFormActions = {
   setHomepageOfferGuidelines: (guidelines: string) => void;
   resetForm: () => void;
   addSubmission: (data?: WebsiteFormData) => string;
-  getSubmissionById: (id: string | number) => WebsiteSubmission | undefined;
+  getSubmissionById: (id: string ) => WebsiteSubmission | undefined;
   deleteSubmission: (id: string) => void;
   updateSubmission: (id: string, data: Partial<WebsiteFormData>) => void;
   clearSubmissions: () => void;
@@ -144,7 +144,7 @@ const initialFormState: WebsiteFormData = {
 
 type WebsiteFormStore = WebsiteFormData & {
   submissions: WebsiteSubmission[];
-  isLoading: boolean;
+ 
 } & WebsiteFormActions;
 
 const useWebsiteFormStore = create<WebsiteFormStore>()(
@@ -162,7 +162,6 @@ const useWebsiteFormStore = create<WebsiteFormStore>()(
       setDescription: (description) => set({ description }),
       setIsOwner: (isOwner) => set({ isOwner }),
       setOfferType: (type) => set({ offerType: type }),
-      setLoading: (loading: boolean) => set({ isLoading: loading }),
       setNormalOffer: (data) =>
         set((state) => ({
           normalOffer: { ...state.normalOffer, ...data },
