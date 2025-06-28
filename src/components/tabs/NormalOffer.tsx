@@ -1,13 +1,40 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
 import { Textarea } from "../ui/textarea";
 import useWebsiteFormStore from "@/store/WebsiteStore";
+import { useParams } from "react-router-dom";
 
 const NormalOffer: React.FC = () => {
-  const { normalOffer, setNormalOffer } = useWebsiteFormStore();
+  const { id } = useParams();
+  const { normalOffer, setNormalOffer, getSubmissionById } = useWebsiteFormStore();
+ useEffect(() => {
+   if (id) {
+     const existingSubmission = getSubmissionById(id);
+     if (existingSubmission) {
+       setNormalOffer({
+         linkInsertionPrice1:
+           existingSubmission?.normalOffer.linkInsertionPrice1,
+         linkInsertionPrice2:
+           existingSubmission?.normalOffer.linkInsertionPrice2,
 
+         advertiserLinks: existingSubmission?.normalOffer.advertiserLinks,
+         allowDofollow: existingSubmission?.normalOffer.allowDofollow,
+         allowedLinkTypes: existingSubmission?.normalOffer.allowedLinkTypes,
+         articleIncluded: existingSubmission?.normalOffer.articleIncluded,
+         articleWordCount: existingSubmission?.normalOffer.articleWordCount,
+         contentRules: existingSubmission?.normalOffer.contentRules,
+         maxLinks: existingSubmission?.normalOffer.maxLinks,
+         maxWords: existingSubmission?.normalOffer.maxWords,
+         minLinks: existingSubmission?.normalOffer.minLinks,
+         minWords: existingSubmission?.normalOffer.minWords,
+         otherLinksPolicy: existingSubmission?.normalOffer.otherLinksPolicy,
+         taggingPolicy: existingSubmission?.normalOffer.taggingPolicy,
+       });
+     }
+   }
+ }, [id, getSubmissionById,setNormalOffer]);
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setNormalOffer({
@@ -63,6 +90,7 @@ const NormalOffer: React.FC = () => {
               min={0}
               value={normalOffer.linkInsertionPrice2 ?? ""}
               onChange={handleInputChange}
+              
             />
           </div>
         </div>

@@ -33,7 +33,13 @@ const GreyNicheOffer: React.FC = () => {
               </h4>
 
               <div>
-                <Label className="font-medium text-[14px] leading-[20px] tracking-[0px] dm-text-h1  text[#0F0C1B99] mb-[8px]">
+                <Label
+                  className={`font-medium text-[14px] leading-[20px] tracking-[0px] dm-text-h1 
+               text[#0F0C1B99] mb-[8px] ${
+                 greyNicheOffer.samePriceForAll === true &&
+                 "text-[#0F0C1B99] opacity-[60%]"
+               }`}
+                >
                   Price for Guest Posting
                 </Label>
                 <div className="relative">
@@ -43,7 +49,9 @@ const GreyNicheOffer: React.FC = () => {
                   <Input
                     value={greyNicheOffer.prices[niche][row].guestPosting}
                     type="number"
-                    className="pl-7"
+                    className={`pl-7 ${
+                      greyNicheOffer.samePriceForAll === true && "bg-[#EAEAEA]"
+                    }`}
                     placeholder=""
                     min={0}
                     onChange={(e) =>
@@ -54,12 +62,18 @@ const GreyNicheOffer: React.FC = () => {
                         Number(e.target.value)
                       )
                     }
+                    disabled={greyNicheOffer.samePriceForAll === true}
                   />
                 </div>
               </div>
 
               <div>
-                <Label className="font-medium text-[14px] leading-[20px] tracking-[0px] dm-text-h1  text[#0F0C1B99] mb-[8px]">
+                <Label
+                  className={`font-medium text-[14px] leading-[20px] tracking-[0px] dm-text-h1  text[#0F0C1B99] mb-[8px] ${
+                    greyNicheOffer.samePriceForAll === true &&
+                    "text-[#0F0C1B99] opacity-[60%]"
+                  }`}
+                >
                   Price for Link Insertion
                 </Label>
                 <div className="relative">
@@ -68,9 +82,12 @@ const GreyNicheOffer: React.FC = () => {
                   </span>
                   <Input
                     type="number"
-                    className="pl-7"
+                    className={`pl-7 ${
+                      greyNicheOffer.samePriceForAll === true && "bg-[#EAEAEA]"
+                    }`}
                     placeholder=""
                     min={0}
+                    disabled={greyNicheOffer.samePriceForAll === true}
                   />
                 </div>
               </div>

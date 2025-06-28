@@ -1,7 +1,6 @@
 import WebsiteForm from "@/components/WesiteForm";
 import useNavigationStore from "@/store/navigationStore";
 import { useEffect } from "react";
-import { useLocation } from "react-router-dom";
 
 const WebsiteDetails = () => {
   const pathParts = location.pathname.split("/");
@@ -12,7 +11,6 @@ const WebsiteDetails = () => {
     setActiveLink(basePath);
   }, [location.pathname]);
 
-  console.log("location", useLocation()?.pathname);
   return (
     <div className="mt-5 lg:mt-[80px]">
       <div className="container">

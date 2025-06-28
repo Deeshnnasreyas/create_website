@@ -17,9 +17,9 @@ import {
   PaginationPrevious,
 } from "@/components/ui/pagination";
 import { useNavigate } from "react-router-dom";
-import useWebsiteFormStore from "@/store/WebsiteStore";
 import { Skeleton } from "./ui/skeleton";
 import { useState } from "react";
+import useWebsiteFormStore from "@/store/WebsiteStore";
 
 const greyNiches = [
   "gray1.svg",
@@ -34,16 +34,13 @@ const DataTable = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const submissions = useWebsiteFormStore((state) => state.submissions);
   const isLoading = useWebsiteFormStore((state) => state.isLoading);
-  console.log("get data", submissions);
+
   const navigate = useNavigate();
   const handleRowClick = (id: string) => {
-    console.log(id);
-    navigate(`/mywebsite/${3}`);
+   
+    navigate(`/mywebsite/${id}`);
   };
   const totalPages = Math.ceil(submissions.length / ITEMS_PER_PAGE);
-  // const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
-  // const endIndex = startIndex + ITEMS_PER_PAGE;
-  // const currentItems = submissions.slice(startIndex, endIndex);
   const handlePageChange = (page: number) => {
     if (page >= 1 && page <= totalPages) {
       setCurrentPage(page);

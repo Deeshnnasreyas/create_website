@@ -66,8 +66,11 @@ type FormData = {
 const schema = yup.object({
   website: yup
     .string()
-    .url("Enter a valid URL")
-    .required("Website URL is required"),
+    .required("Website URL is required")
+    .matches(
+      /^(https?:\/\/)?([a-zA-Z0-9.-]+\.[a-zA-Z]{2,})(\/\S*)?$/,
+      "Enter a valid URL"
+    ),
   primaryLanguage: yup.string().required("Primary Language is required"),
   trafficSource: yup.string().required("Majority traffic is required"),
   description: yup.string().required("Description is required"),
@@ -76,6 +79,7 @@ const WebsiteForm: React.FC = () => {
   const {
     control,
     register,
+    reset,
     handleSubmit,
     formState: { errors },
   } = useForm<FormData>({
@@ -104,36 +108,48 @@ const WebsiteForm: React.FC = () => {
     getSubmissionById,
     addSubmission,
     updateSubmission,
+   
   } = useWebsiteFormStore();
 
   useEffect(() => {
+   
     if (id) {
       const existingSubmission = getSubmissionById(id);
       if (existingSubmission) {
-        // Set all form fields from the existing submission
-        setWebsiteUrl(existingSubmission.websiteUrl);
+        setWebsiteUrl(existingSubmission?.websiteUrl);
         setPrimaryLanguage(existingSubmission.primaryLanguage);
         setTrafficSource(existingSubmission.trafficSource);
         setCategories(existingSubmission.categories);
-        setDescription(existingSubmission.description);
+        setOfferType(existingSubmission?.offerType);
+        reset({
+          website: existingSubmission.websiteUrl,
+          primaryLanguage: existingSubmission.primaryLanguage,
+          trafficSource: existingSubmission.trafficSource,
+          description: existingSubmission.description,
+        });
+        setCategories(existingSubmission.categories);
         setIsOwner(existingSubmission.isOwner);
         setOfferType(existingSubmission.offerType);
         setWebsiteStatus(existingSubmission.webStatus || "pending");
-
-        if (existingSubmission.normalOffer) {
-          // setNormalOffer(existingSubmission.normalOffer);
-        }
       }
     } else {
       resetForm();
+      reset({
+        website: "",
+        primaryLanguage: "",
+        trafficSource: "",
+        description: "",
+      });
+      setCategories([])
     }
-  }, [id, resetForm]);
+  }, [id, reset, getSubmissionById,resetForm,setPrimaryLanguage,setTrafficSource,setCategories,setOfferType]);
 
   const onSubmit = (data: FormData) => {
     setWebsiteUrl(data.website);
     setPrimaryLanguage(data.primaryLanguage);
     setTrafficSource(data.trafficSource);
     setDescription(data.description);
+   
     if (id) {
       updateSubmission(id, {
         websiteUrl: data.website,
@@ -145,33 +161,13 @@ const WebsiteForm: React.FC = () => {
         offerType,
         webStatus,
       });
+      navigate("/mywebsite");
     } else {
       const submissionId = addSubmission();
       console.log("New submission created with ID:", submissionId);
+      navigate("/mywebsite");
     }
   };
-  // const handleSubmit = (e: React.FormEvent) => {
-  //   e.preventDefault();
-
-  //   if (id) {
-  //     updateSubmission(id, {
-  //       websiteUrl,
-  //       primaryLanguage,
-  //       trafficSource,
-  //       categories: selectedCategories,
-  //       description,
-  //       isOwner,
-  //       offerType,
-  //       webStatus,
-  //     });
-
-  //   } else {
-  //     const submissionId = addSubmission();
-  //     console.log("New submission created with ID:", submissionId);
-
-  //   }
-
-  // };
   return (
     <>
       <div className=" lg:py-[56px] items-center">
@@ -222,11 +218,12 @@ const WebsiteForm: React.FC = () => {
               /> */}
               <Controller
                 name="primaryLanguage"
+                defaultValue={primaryLanguage}
                 control={control}
                 rules={{ required: "Primary Language is required" }}
                 render={({ field, fieldState }) => (
                   <CountrySelect
-                    defaultCountry={primaryLanguage}
+                    defaultCountry={field.value}
                     value={field.value}
                     onChange={field.onChange}
                     withLanguage
@@ -242,11 +239,12 @@ const WebsiteForm: React.FC = () => {
               </Label>
               <Controller
                 name="trafficSource"
+                defaultValue={trafficSource}
                 control={control}
                 rules={{ required: "Majority of traffic is required" }}
                 render={({ field, fieldState }) => (
                   <CountrySelect
-                    defaultCountry={trafficSource}
+                    defaultCountry={field.value}
                     value={field.value}
                     onChange={field.onChange}
                     withLanguage
@@ -359,7 +357,7 @@ const WebsiteForm: React.FC = () => {
               </TabsContent>
 
               <TabsContent value="homepage" className="space-y-4">
-                <HomepageLinkOffer />
+                <HomepageLinkOffer/>
               </TabsContent>
             </Tabs>
           </div>

@@ -78,7 +78,7 @@ type WebsiteFormActions = {
   setHomepageOfferGuidelines: (guidelines: string) => void;
   resetForm: () => void;
   addSubmission: (data?: WebsiteFormData) => string;
-  getSubmissionById: (id: string) => WebsiteSubmission | undefined;
+  getSubmissionById: (id: string | number) => WebsiteSubmission | undefined;
   deleteSubmission: (id: string) => void;
   updateSubmission: (id: string, data: Partial<WebsiteFormData>) => void;
   clearSubmissions: () => void;
@@ -240,6 +240,7 @@ const useWebsiteFormStore = create<WebsiteFormStore>()(
         return newSubmission.id;
       },
 
+      //  getSubmissionById: (id:number | string) => get().submissions.find((sub) => sub.id === id),
       getSubmissionById: (id) => get().submissions.find((sub) => sub.id === id),
 
       deleteSubmission: (id) =>
