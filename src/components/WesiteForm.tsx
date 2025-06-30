@@ -141,6 +141,7 @@ const WebsiteForm: React.FC = () => {
         description: "",
       });
       setCategories([])
+      // console.log(categories);
     }
   }, [id, reset, getSubmissionById,resetForm,setPrimaryLanguage,setTrafficSource,setCategories,setOfferType]);
 

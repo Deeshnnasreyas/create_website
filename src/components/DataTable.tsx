@@ -19,7 +19,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import { Skeleton } from "./ui/skeleton";
 import { useState } from "react";
-import useWebsiteFormStore from "@/store/WebsiteStore";
+import useWebsiteFormStore, { type Website } from "@/store/WebsiteStore";
 
 const greyNiches = [
   "gray1.svg",
@@ -30,14 +30,17 @@ const greyNiches = [
   "gray6.svg",
 ];
 const ITEMS_PER_PAGE = 10;
+
 const DataTable = () => {
   const [currentPage, setCurrentPage] = useState(1);
-  const submissions = useWebsiteFormStore((state) => state.submissions);
+  // const submissions = useWebsiteFormStore((state) => state.submissions);
+  const submissions: Website[] = useWebsiteFormStore(
+    (state) => state.submissions
+  );
   const isLoading = useWebsiteFormStore((state) => state.isLoading);
 
   const navigate = useNavigate();
   const handleRowClick = (id: string) => {
-   
     navigate(`/mywebsite/${id}`);
   };
   const totalPages = Math.ceil(submissions.length / ITEMS_PER_PAGE);
@@ -232,8 +235,8 @@ const DataTable = () => {
                 </TableCell>
                 <TableCell>
                   <div className="flex flex-wrap gap-1">
-                    {website.categories.map((cat) => (
-                      <Badge key={cat} variant="secondary" className="text-xs">
+                    {website.categories.map((cat:string,index:number) => (
+                      <Badge key={index} variant="secondary" className="text-xs">
                         {cat}
                       </Badge>
                     ))}

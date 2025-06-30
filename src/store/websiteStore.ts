@@ -56,7 +56,19 @@ export type WebsiteSubmission = WebsiteFormData & {
   createdAt: string;
   updatedAt: string;
 };
-
+export type Website = {
+  id: string;
+  websiteUrl: string;
+  primaryLanguage: string;
+  trafficSource: string;   
+  categories: string[];   
+};
+export interface WebsiteFormStoreState {
+  submissions: Website[];
+  isLoading: boolean;
+  setSubmissions: (data: Website[]) => void;
+  setIsLoading: (loading: boolean) => void;
+}
 type WebsiteFormActions = {
   setWebsiteStatus: (status: Status) => void;
   setWebsiteUrl: (url: string) => void;
@@ -76,9 +88,10 @@ type WebsiteFormActions = {
   ) => void;
   setHomepageOfferPrice: (price: number) => void;
   setHomepageOfferGuidelines: (guidelines: string) => void;
+  submissions: Website[];
   resetForm: () => void;
   addSubmission: (data?: WebsiteFormData) => string;
-  getSubmissionById: (id: string ) => WebsiteSubmission | undefined;
+  getSubmissionById: (id: string) => WebsiteSubmission | undefined;
   deleteSubmission: (id: string) => void;
   updateSubmission: (id: string, data: Partial<WebsiteFormData>) => void;
   clearSubmissions: () => void;
@@ -144,6 +157,7 @@ const initialFormState: WebsiteFormData = {
 
 type WebsiteFormStore = WebsiteFormData & {
   submissions: WebsiteSubmission[];
+  
  
 } & WebsiteFormActions;
 
