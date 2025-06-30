@@ -19,8 +19,8 @@ import {
 import { useNavigate } from "react-router-dom";
 import { Skeleton } from "./ui/skeleton";
 import { useState } from "react";
-import useWebsiteFormStore from "@/store/WebsiteStore";
-import type { WebsiteFormStore, WebsiteSubmission } from "@/store/WebsiteStore";
+import useWebsiteFormStore from "../store/WebsiteStore";
+import type { WebsiteFormStore, WebsiteSubmission } from "../store/WebsiteStore";
 
 const greyNiches = [
   "gray1.svg",

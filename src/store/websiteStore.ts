@@ -51,7 +51,7 @@ type WebsiteFormData = {
   homepageOffer: HomepageLinkOfferData;
 };
 
-export type WebsiteSubmission = WebsiteFormData & {
+type WebsiteSubmission = WebsiteFormData & {
   id: string;
   createdAt: string;
   updatedAt: string;
@@ -152,7 +152,7 @@ const initialFormState: WebsiteFormData = {
   isLoading: false,
 };
 
-export type WebsiteFormStore = WebsiteFormData & {
+ type WebsiteFormStore = WebsiteFormData & {
   submissions: WebsiteSubmission[];
   
  
@@ -291,3 +291,4 @@ const useWebsiteFormStore = create<WebsiteFormStore>()(
 );
 
 export default useWebsiteFormStore;
+export type { WebsiteSubmission, WebsiteFormStore };
