@@ -97,9 +97,6 @@ type WebsiteFormActions = {
   clearSubmissions: () => void;
 };
 
-// ------------------------
-// INITIAL VALUES
-// ------------------------
 const initialNormalOffer: NormalOfferData = {
   linkInsertionPrice1: null,
   linkInsertionPrice2: null,

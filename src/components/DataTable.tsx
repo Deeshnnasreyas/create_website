@@ -19,7 +19,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import { Skeleton } from "./ui/skeleton";
 import { useState } from "react";
-import useWebsiteFormStore, { type WebsiteSubmission } from "@/store/WebsiteStore";
+import useWebsiteFormStore from "@/store/WebsiteStore";
 
 const greyNiches = [
   "gray1.svg",
@@ -33,10 +33,8 @@ const ITEMS_PER_PAGE = 10;
 
 const DataTable = () => {
   const [currentPage, setCurrentPage] = useState(1);
-  //  const submissions = useWebsiteFormStore((state) => state.submissions);
-  const submissions: WebsiteSubmission[] = useWebsiteFormStore(
-    (state) => state.submissions
-  );
+  const submissions = useWebsiteFormStore((state) => state.submissions);
+
  
   const isLoading = useWebsiteFormStore((state) => state.isLoading);
 
