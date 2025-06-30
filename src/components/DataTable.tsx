@@ -19,8 +19,8 @@ import {
 import { useNavigate } from "react-router-dom";
 import { Skeleton } from "./ui/skeleton";
 import { useState } from "react";
-import type { WebsiteFormStore } from "@/store/WebsiteStore";
 import useWebsiteFormStore from "@/store/WebsiteStore";
+import type { WebsiteFormStore, WebsiteSubmission } from "@/store/WebsiteStore";
 
 const greyNiches = [
   "gray1.svg",
@@ -199,7 +199,7 @@ const DataTable = () => {
           </TableRow>
         ) : (
           <TableBody>
-            {submissions?.map((website, index) => (
+            {submissions?.map((website: WebsiteSubmission, index: number) => (
               <TableRow
                 key={index}
                 className={`${getRandomRowColor()} hover:bg-gray-50 cursor-pointer`}
@@ -239,8 +239,12 @@ const DataTable = () => {
                 </TableCell>
                 <TableCell>
                   <div className="flex flex-wrap gap-1">
-                    {website.categories.map((cat:string,index:number) => (
-                      <Badge key={index} variant="secondary" className="text-xs">
+                    {website.categories.map((cat: string, index: number) => (
+                      <Badge
+                        key={index}
+                        variant="secondary"
+                        className="text-xs"
+                      >
                         {cat}
                       </Badge>
                     ))}
