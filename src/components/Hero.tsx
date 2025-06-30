@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
-import DataTable from "./DataTable";
 import { Button } from "./ui/button";
 import { HiPlus } from "react-icons/hi";
+import React, { Suspense } from "react";
 const Hero = () => {
   const navigate = useNavigate();
   const handleClick = (
@@ -11,6 +11,7 @@ const Hero = () => {
     event.preventDefault();
     navigate(`/mywebsite/new`);
   };
+  const DataTable = React.lazy(() => import("@/components/DataTable"));
   return (
     <section id="website" className="bg-[#FDFCFF]">
       <div className="container">
@@ -37,7 +38,9 @@ const Hero = () => {
         </div>
       </div>
       <div className="px-4 lg:px-[24]">
-        <DataTable />
+        <Suspense fallback={<div>Loading...</div>}>
+          <DataTable />
+        </Suspense>
       </div>
     </section>
   );
