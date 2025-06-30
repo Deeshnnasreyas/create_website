@@ -199,7 +199,7 @@ const DataTable = () => {
           </TableRow>
         ) : (
           <TableBody>
-            {submissions?.map((website: WebsiteSubmission, index: number) => (
+            {submissions?.map(( website: WebsiteSubmission, index: number) => (
               <TableRow
                 key={index}
                 className={`${getRandomRowColor()} hover:bg-gray-50 cursor-pointer`}
