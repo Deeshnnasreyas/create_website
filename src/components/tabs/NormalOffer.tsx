@@ -5,7 +5,7 @@ import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
 import { Textarea } from "../ui/textarea";
 
 import { useParams } from "react-router-dom";
-import useWebsiteFormStore from "@/store/WebsiteStore";
+import useWebsiteFormStore from "../../store/WebsiteStore";
 
 const NormalOffer: React.FC = () => {
   const { id } = useParams();

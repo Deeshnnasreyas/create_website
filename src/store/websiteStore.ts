@@ -152,7 +152,7 @@ const initialFormState: WebsiteFormData = {
   isLoading: false,
 };
 
-type WebsiteFormStore = WebsiteFormData & {
+export type WebsiteFormStore = WebsiteFormData & {
   submissions: WebsiteSubmission[];
   
  

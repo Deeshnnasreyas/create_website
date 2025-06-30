@@ -19,6 +19,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import { Skeleton } from "./ui/skeleton";
 import { useState } from "react";
+import type { WebsiteFormStore } from "@/store/WebsiteStore";
 import useWebsiteFormStore from "@/store/WebsiteStore";
 
 const greyNiches = [
@@ -33,10 +34,14 @@ const ITEMS_PER_PAGE = 10;
 
 const DataTable = () => {
   const [currentPage, setCurrentPage] = useState(1);
-  const submissions = useWebsiteFormStore((state) => state.submissions);
+  const submissions = useWebsiteFormStore(
+    (state: WebsiteFormStore) => state.submissions
+  );
 
  
-  const isLoading = useWebsiteFormStore((state) => state.isLoading);
+  const isLoading = useWebsiteFormStore(
+    (state: WebsiteFormStore) => state.isLoading
+  );
 
   const navigate = useNavigate();
   const handleRowClick = (id: string) => {
