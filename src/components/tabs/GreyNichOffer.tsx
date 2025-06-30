@@ -2,7 +2,7 @@ import React from "react";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-import useWebsiteFormStore from "../../store/WebsiteStore";
+import useWebsiteFormStore from "@/store/WebsiteStore";
 const niches = ["Gambling", "Crypto", "Adult"];
 
 const GreyNicheOffer: React.FC = () => {
